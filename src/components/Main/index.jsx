@@ -1,23 +1,18 @@
-import Enola from "./../../assets/img/enola.png"
+import Movies from "../Movies/Index";
 import "./styles.css"
 
-function Main(){
+
+function Main(props){
+
+     const {data, setData} = props
+
     return(
         <>
             <div className="Main">
                 <div className="Select">
                     <p>Selecione o filme</p>
                 </div>
-                <nav>
-                    <div className="Movie" ><img src={Enola} alt="enola" /></div>
-                    <div className="Movie" ><img src={Enola} alt="enola" /></div>
-                    <div className="Movie" ><img src={Enola} alt="enola" /></div>
-                    <div className="Movie" ><img src={Enola} alt="enola" /></div>
-                    <div className="Movie" ><img src={Enola} alt="enola" /></div>
-                    <div className="Movie" ><img src={Enola} alt="enola" /></div>
-                    <div className="Movie" ><img src={Enola} alt="enola" /></div>
-                    <div className="Movie" ><img src={Enola} alt="enola" /></div>
-                </nav>
+             <Movies data={data} setData={setData}/>
             </div>
         </>
     )

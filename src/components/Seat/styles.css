@@ -28,7 +28,6 @@
 }
 
 .seats{
-    background-color: red;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -89,6 +88,7 @@
     align-items: center;
     background: #FBE192;
     border: 1px solid #F7C52B;
+    pointer-events: none;
 }
 
 .Data{

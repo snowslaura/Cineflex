@@ -1,48 +1,60 @@
 import "./styles.css"
-import  Enola from "./../../assets/img/enola.png"
+
+import { useParams , Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import axios from "axios";
 
 function Schedule(){
+    const {idMovie} = useParams();
+    const [schedule, setSchedule] = useState({});  
+
+    useEffect( ()=> {
+        const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/movies/${idMovie}/showtimes`)
+        promise.then( response => {
+            setSchedule(response.data);
+        })
+        promise.catch(e => console.log(e))
+    }, [idMovie]);
+
+    console.log(schedule)
+
     return(
         <>
             <div className="select-time">
                 <p>Selecione o horário</p>
             </div>
-            <div className="schedules">
-                <div className="day" >
-                    <p>Quinta-feira - 24/06/2021</p>
-                    <div className="time-options">
-                        <div className="time">
-                            15:00
+
+            {!schedule.days ? null: schedule.days.map( (day) => {
+                return(
+                    <>
+                        <div key={day.id} className="schedules">
+                            <div className="day" >
+                                <p> {day.weekday} - {day.date} </p>
+                                <div className="time-options">
+                                    {day.showtimes.map ( (showtime) =>{
+                                        return(
+                                           <Link to={`/sessao/${showtime.id}`}><div className="time" key={showtime.id}>{showtime.name}</div></Link> 
+                                        )
+                                    })}
+                                </div>
+                            </div>
                         </div>
-                        <div className="time">
-                            19:00
-                        </div>
-                    </div>
-                </div>
-                <div className="day" >
-                    <p>Quinta-feira - 24/06/2021</p>
-                    <div className="time-options">
-                        <div className="time">
-                            15:00
-                        </div>
-                        <div className="time">
-                            19:00
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <footer>
+                       
+                    </>
+                )
+            })}
+            
+             <footer>
                 <div className="footer-content">
                     <div className="footer-movie">
-                        <img src={Enola} alt="enola"/>
+                        <img src={schedule.posterURL} alt={schedule.title}/>
                     </div>
                     <div className="footer-p">
-                        <p>Enola Holmes</p>
+                        <p>{schedule.title}</p>
                     </div>
                 </div>
             </footer>
-        </>
-
+        </>           
     )
 }
 
