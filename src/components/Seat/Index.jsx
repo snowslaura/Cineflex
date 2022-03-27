@@ -5,69 +5,77 @@ import axios from "axios";
 
 function Seat(){
     const [seats, setSeats] = useState({});
-    const [choice, setChoice] = useState([]);
-    const [select, setSelect] = useState(false);
+    const [newSeats, setNewSeats] = useState([]);
     const {idSession} = useParams();
 
     useEffect( () =>{
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSession}/seats`)
-        promise.then(response => setSeats(response.data))
+        promise.then(response => {
+            setSeats(response.data)
+            setNewSeats(response.data.seats)
+        })
         promise.catch(e => console.log(e))
     },[idSession])
 
-    function handleClick(){
-        setSelect(!select)
-        setChoice([...choice, seats.seats[0]])
-        console.log(choice)
-        console.log(select)
+    function seatSelected(id, isAvailable) {
+        if ( !isAvailable ){ 
+            alert('Este assento está indisponivel!')
+            return
+        }
+
+        const newSeats = seats.seats.map(seat => {
+            if( seat.id === id) {
+                seat.isSelected = !seat.isSelected
+            }
+            return seat;
+        })
+
+        setNewSeats(newSeats)
+        const choosenSeatIds = newSeats.filter(newSeat => newSeat.isSelected === true).map(newSeat => newSeat.id)
+
+        console.log("Nova array de assentos: ", newSeats)
+        console.log("Array só com assento escolhido: ", choosenSeatIds)
     }
-    
+
+         
     return(
         <>
             <div className="select-time">
                     <p>Selecione o(s) acento(s)</p>
             </div>
-
             <div className="seats">
-                {!seats.seats ? null : seats.seats.map((seat)=>{
+                {!seats.seats ? null : newSeats.map((seat)=>{
                     return(
                         <>
-                            {seat.isAvailable===true?
-                                <div onClick={handleClick} className="choose-seat" key={seat.id}>
-                                    {seat.name}
-                                </div>:
-                                <div className="choose-seat unavaiable" key={seat.id}>
-                                    {seat.name}
-                                </div>
-                            }
+                        <div key={seat.id} onClick={() => seatSelected(seat.id, seat.isAvailable)} className={`choose-seat ${seat.isAvailable} ${seat.isSelected ? 'selected' : ''}`} >{seat.name}</div>
                         </>
                     )
                 })}
-                <div className="subtitle">
-                    <div className="option">
-                        <div className="choose-seat selected"></div>
-                        <p>Selecionado</p>
-                    </div>
-            
-                    <div className="option">
-                            <div className="choose-seat avaiable"></div>
-                            <p>Disponível</p>
-                    </div>
-                    <div className="option">
-                            <div className="choose-seat unavaiable"></div>
-                            <p>Indisponível</p>
-                    </div>
+            </div>
+            <div className="subtitle">
+                <div className="option">
+                    <div className="choose-seat selected"></div>
+                    <p>Selecionado</p>
+                </div>
+        
+                <div className="option">
+                        <div className="choose-seat avaiable"></div>
+                        <p>Disponível</p>
+                </div>
+                <div className="option">
+                        <div className="choose-seat unavaiable"></div>
+                        <p>Indisponível</p>
                 </div>
             </div>
 
             <div className="Data">
                     <p>Nome do comprador</p>
-                    <input value="   Digite seu nome..."></input>
+                    <input placeholder="   Digite seu nome..."></input>
             </div>
 
             <div className="Data">
                     <p>CPF do comprador</p>
-                    <input value="   Digite seu CPF..."></input>
+                    <input placeholder="   Digite seu CPF..."></input>
             </div>
 
             <button>
