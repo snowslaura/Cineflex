@@ -1,6 +1,8 @@
 import "./styles.css"
 
-function Success(){
+function Success(props){
+    const{ cpf, nome, choosenDataSeat, movie} = props
+    console.log(choosenDataSeat)
     return(
         <>
         <div className="header">
@@ -9,18 +11,19 @@ function Success(){
         </div>
         <div className="information">
             <p>Filme e sessão</p>
-            <h1> Enola Holmes</h1>
-            <h1> 24/06/2021 15:00</h1>
+            <h1> {movie.movie.title}</h1>
+            <h1> {movie.day.date} {movie.name}</h1>
         </div>
         <div className="information">
             <p>Ingressos</p>
-            <h1> Assento 15</h1>
-            <h1> Assento 16</h1>
+            {choosenDataSeat.map((choosenSeat) =>{
+                return(<h1 key={choosenSeat.id}> Assento {choosenSeat.name} </h1>)})
+            }
         </div>
         <div className="information">
             <p>Pedido feito</p>
-            <h1> Nome: João da Silva Sauro</h1>
-            <h1>CPF: 123.456.789-10</h1>
+            <h1> Nome: {nome}</h1>
+            <h1>CPF: {cpf}</h1>
         </div>
         <button>
             Reservar assento(s)

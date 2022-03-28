@@ -23,7 +23,7 @@ function Schedule(){
             <div className="select-time">
                 <p>Selecione o horário</p>
             </div>
-
+            <div className="main">
             {!schedule.days ? null: schedule.days.map( (day) => {
                 return(
                     <>
@@ -43,6 +43,7 @@ function Schedule(){
                     </>
                 )
             })}
+            </div>
             
              <footer>
                 <div className="footer-content">

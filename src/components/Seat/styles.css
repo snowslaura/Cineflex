@@ -13,7 +13,13 @@
     text-align: center;
     letter-spacing: 0.04em
 }
-
+.main{
+    /* margin-bottom: 117px; */
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .choose-seat{
     display: flex;
     justify-content: center;
@@ -42,6 +48,7 @@
     flex-direction: row;
     width: 70%;
     justify-content: space-between;
+    margin-bottom: 20px;
 }
 
 .subtitle p{
@@ -82,12 +89,10 @@
 
 .Data{
     width: 327px;
-    margin-bottom: 10px;
-   
 }
 
 
-.Data p{
+.Data label{
     font-weight: 400;
     font-size: 18px;
     line-height: 21px;
@@ -109,27 +114,7 @@
     color: #AFAFAF;
 }
 
-button{
-    margin-top: 57px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 225px;
-    height: 42px;
-    background: #E8833A;
-    border-radius: 3px;
-    border:none;
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 21px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    letter-spacing: 0.04em;
-    color: #FFFFFF;
-}
+
 
 footer{
     
@@ -201,3 +186,25 @@ footer img{
     background: #8DD7CF;
     border: 1px solid #1AAE9E;
 } 
+
+button{
+    margin-top: 27px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 225px;
+    height: 42px;
+    background: #E8833A;
+    border-radius: 3px;
+    border:none;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #FFFFFF;
+}

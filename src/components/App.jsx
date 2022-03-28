@@ -11,6 +11,11 @@ import Success from "./Success/Index"
 function App(){
 
     const [data, setData] = useState([]);
+    const [choosenDataSeat, setChoosenDataSeat] = useState([]);
+    const [cpf, setCpf] = useState("");
+    const [nome, setNome] = useState("");
+    const [movie, setMovie] = useState([]);
+
 
     return(
         <>
@@ -19,9 +24,19 @@ function App(){
                 <Routes>
                     <Route path="/" element={<Main data={data} setData={setData} />}/>
                     <Route path="/filme/:idMovie" element={<Schedule  />}/>
-                    <Route path="/sessao/:idSession" element={<Seat  />}/>
-                    <Route path="/sucesso" element={<Success />}/>
-                </Routes>
+                    <Route path="/sessao/:idSession" element={<Seat
+                                                               choosenDataSeat ={choosenDataSeat}
+                                                               setChoosenDataSeat={setChoosenDataSeat}
+                                                               setCpf={setCpf}
+                                                               cpf={cpf}
+                                                               nome={nome}
+                                                               setNome={setNome}
+                                                               setMovie={setMovie} />}/>
+                    <Route path="/sucesso" element={<Success cpf={cpf}
+                                                             nome={nome}
+                                                             movie={movie}
+                                                             choosenDataSeat ={choosenDataSeat}/>} />
+               </Routes >                                             
             </BrowserRouter>
         </>
     )

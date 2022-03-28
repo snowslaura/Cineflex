@@ -1,21 +1,33 @@
 import "./styles.css"
-import { useParams } from "react-router-dom";
+import { useParams , useNavigate} from "react-router-dom";
 import { useEffect , useState} from "react";
 import axios from "axios";
 
-function Seat(){
+function Seat(props){
+
+    const {choosenDataSeat,
+            setChoosenDataSeat, 
+            cpf,
+            setCpf,
+            nome, 
+            setNome,
+            setMovie} = props
+
+    const {idSession} = useParams();
     const [seats, setSeats] = useState({});
     const [newSeats, setNewSeats] = useState([]);
-    const {idSession} = useParams();
+    const navigate = useNavigate();
+    
 
     useEffect( () =>{
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSession}/seats`)
         promise.then(response => {
             setSeats(response.data)
             setNewSeats(response.data.seats)
+            setMovie(response.data)
         })
         promise.catch(e => console.log(e))
-    },[idSession])
+    },[idSession,setMovie])
 
     function seatSelected(id, isAvailable) {
         if ( !isAvailable ){ 
@@ -31,10 +43,22 @@ function Seat(){
         })
 
         setNewSeats(newSeats)
-        const choosenSeatIds = newSeats.filter(newSeat => newSeat.isSelected === true).map(newSeat => newSeat.id)
+        const choosenSeat = newSeats.filter(newSeat => newSeat.isSelected === true)
+        setChoosenDataSeat(choosenSeat)
 
         console.log("Nova array de assentos: ", newSeats)
-        console.log("Array só com assento escolhido: ", choosenSeatIds)
+        console.log("Array só com assento escolhido: ", choosenSeat)
+    }
+
+    function submitData(event){
+        event.preventDefault();
+        console.log("cliquei")
+        if(choosenDataSeat.length<1){
+            alert("Escolha ao menos um assento")
+            return
+        } 
+        navigate("/sucesso")
+        
     }
 
          
@@ -43,45 +67,47 @@ function Seat(){
             <div className="select-time">
                     <p>Selecione o(s) acento(s)</p>
             </div>
-            <div className="seats">
-                {!seats.seats ? null : newSeats.map((seat)=>{
-                    return(
-                        <>
-                        <div key={seat.id} onClick={() => seatSelected(seat.id, seat.isAvailable)} className={`choose-seat ${seat.isAvailable} ${seat.isSelected ? 'selected' : ''}`} >{seat.name}</div>
-                        </>
-                    )
-                })}
-            </div>
-            <div className="subtitle">
-                <div className="option">
-                    <div className="choose-seat selected"></div>
-                    <p>Selecionado</p>
+            <div className="main">
+                <div className="seats">
+                    {!seats.seats ? null : newSeats.map((seat)=>{
+                        return(
+                            <>
+                            <div key={seat.id} onClick={() => seatSelected(seat.id, seat.isAvailable)} className={`choose-seat ${seat.isAvailable} ${seat.isSelected ? 'selected' : ''}`} >{seat.name}</div>
+                            </>
+                        )
+                    })}
                 </div>
-        
-                <div className="option">
-                        <div className="choose-seat avaiable"></div>
-                        <p>Disponível</p>
+                <div className="subtitle">
+                    <div className="option">
+                        <div className="choose-seat selected"></div>
+                        <p>Selecionado</p>
+                    </div>
+            
+                    <div className="option">
+                            <div className="choose-seat avaiable"></div>
+                            <p>Disponível</p>
+                    </div>
+                    <div className="option">
+                            <div className="choose-seat unavaiable"></div>
+                            <p>Indisponível</p>
+                    </div>
                 </div>
-                <div className="option">
-                        <div className="choose-seat unavaiable"></div>
-                        <p>Indisponível</p>
+
+                <div className="Data">
+                        <form onSubmit={submitData}>
+                            <label for="campoNome" >Nome do comprador</label>
+                            <input type="text" id="campoNome"value={nome} required onChange={(event) => setNome(event.target.value)} placeholder="   Digite seu nome..."></input>
+                            
+                            <label for="campoCPF">CPF do comprador</label>
+                            <input type="number" id="campoCPF" value={cpf} required onChange={(event) => setCpf(event.target.value)} placeholder="   Digite seu CPF..."></input>
+                            
+                            <button >
+                            Reservar assento(s)
+                            </button>
+                        </form>
                 </div>
+
             </div>
-
-            <div className="Data">
-                    <p>Nome do comprador</p>
-                    <input placeholder="   Digite seu nome..."></input>
-            </div>
-
-            <div className="Data">
-                    <p>CPF do comprador</p>
-                    <input placeholder="   Digite seu CPF..."></input>
-            </div>
-
-            <button>
-            Reservar assento(s)
-            </button>
-
             <footer>
             <div className="footer-content">
                 <div className="footer-movie">
