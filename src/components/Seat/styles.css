@@ -161,6 +161,13 @@ footer img{
     margin-left:4%;
 }
 
+footer p{
+    white-space: nowrap; 
+    width: 80%; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .false{
     display: flex;
     flex-direction: column;
