@@ -92,6 +92,7 @@
 }
 
 
+
 .Data label{
     font-weight: 400;
     font-size: 18px;
@@ -187,8 +188,7 @@ footer img{
     border: 1px solid #1AAE9E;
 } 
 
-button{
-    margin-top: 27px;
+form button{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -207,4 +207,5 @@ button{
     text-align: center;
     letter-spacing: 0.04em;
     color: #FFFFFF;
+    margin-left: 15%;
 }

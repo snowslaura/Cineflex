@@ -52,7 +52,6 @@ function Seat(props){
 
     function submitData(event){
         event.preventDefault();
-        console.log("cliquei")
         if(choosenDataSeat.length<1){
             alert("Escolha ao menos um assento")
             return
@@ -68,11 +67,11 @@ function Seat(props){
         
     }
 
-         
+          
     return(
         <>
             <div className="select-time">
-                    <p>Selecione o(s) acento(s)</p>
+                    <p>Selecione o(s) assento(s)</p>
             </div>
             <div className="main">
                 <div className="seats">
@@ -106,7 +105,7 @@ function Seat(props){
                             <input type="text" id="campoNome"value={nome} required onChange={(event) => setNome(event.target.value)} placeholder="   Digite seu nome..."></input>
                             
                             <label for="campoCPF">CPF do comprador</label>
-                            <input type="number" id="campoCPF" value={cpf} required onChange={(event) => setCpf(event.target.value)} placeholder="   Digite seu CPF..."></input>
+                            <input type="text" id="campoCPF" value={cpf} required onChange={(event) => setCpf(event.target.value)} placeholder="   Digite seu CPF..."></input>
                             
                             <button >
                             Reservar assento(s)
