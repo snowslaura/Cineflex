@@ -57,7 +57,14 @@ function Seat(props){
             alert("Escolha ao menos um assento")
             return
         } 
-        navigate("/sucesso")
+
+        const body = {
+            ids: choosenDataSeat.map(seat => seat.id),
+            name: nome,
+            cpf: cpf
+        }
+        const request = axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many", body)
+        request.then(navigate("/sucesso"))
         
     }
 

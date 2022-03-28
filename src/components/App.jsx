@@ -16,6 +16,14 @@ function App(){
     const [nome, setNome] = useState("");
     const [movie, setMovie] = useState([]);
 
+    function resetData(){
+        setData([]);
+        setCpf("");
+        setNome("");
+        setMovie([]);
+        setChoosenDataSeat([]);
+    }
+
 
     return(
         <>
@@ -32,7 +40,8 @@ function App(){
                                                                nome={nome}
                                                                setNome={setNome}
                                                                setMovie={setMovie} />}/>
-                    <Route path="/sucesso" element={<Success cpf={cpf}
+                    <Route path="/sucesso" element={<Success resetData={resetData}
+                                                             cpf={cpf}
                                                              nome={nome}
                                                              movie={movie}
                                                              choosenDataSeat ={choosenDataSeat}/>} />

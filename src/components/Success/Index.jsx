@@ -1,8 +1,15 @@
+import { useNavigate } from "react-router-dom"
 import "./styles.css"
 
 function Success(props){
-    const{ cpf, nome, choosenDataSeat, movie} = props
-    console.log(choosenDataSeat)
+    const{ cpf, nome, choosenDataSeat, movie, resetData} = props
+    const navigate = useNavigate();
+
+    function handleClick(){
+        resetData();
+        navigate("/")
+    }
+
     return(
         <>
         <div className="header">
@@ -25,8 +32,8 @@ function Success(props){
             <h1> Nome: {nome}</h1>
             <h1>CPF: {cpf}</h1>
         </div>
-        <button>
-            Reservar assento(s)
+        <button onClick={handleClick}>
+            Voltar pra home 
         </button>
 
         </>

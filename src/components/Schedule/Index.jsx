@@ -16,8 +16,6 @@ function Schedule(){
         promise.catch(e => console.log(e))
     }, [idMovie]);
 
-    console.log(schedule)
-
     return(
         <>
             <div className="select-time">
