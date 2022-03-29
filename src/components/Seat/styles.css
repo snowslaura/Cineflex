@@ -14,23 +14,18 @@
     letter-spacing: 0.04em
 }
 .main{
-    /* margin-bottom: 117px; */
     display:flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 .choose-seat{
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 26px;
     height: 26px;
     background: #C3CFD9;
     border: 1px solid #808F9D;
     box-sizing: border-box;
     border-radius: 12px;
-    margin: 6px;
     cursor: pointer;
 }
 
@@ -38,9 +33,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-    height: 300px;
-    width: 400px;
+    width: 327px;
+    gap: 18px 7px;
 }
 
 .subtitle{
@@ -49,6 +43,7 @@
     width: 70%;
     justify-content: space-between;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .subtitle p{

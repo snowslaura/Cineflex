@@ -56,6 +56,10 @@ function Seat(props){
             alert("Escolha ao menos um assento")
             return
         } 
+        if(cpf.match(/^[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}$/) === null){
+            alert("CPF inválido")
+            return
+        }
 
         const body = {
             ids: choosenDataSeat.map(seat => seat.id),
@@ -65,6 +69,16 @@ function Seat(props){
         const request = axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many", body)
         request.then(navigate("/sucesso"))
         
+    }
+
+    function cpfMask(value){
+        return (value
+            .replace(/\D/g, '')
+            .replace(/(\d{3})(\d)/, '$1.$2')
+            .replace(/(\d{3})(\d)/, '$1.$2')
+            .replace(/(\d{3})(\d{1,2})/, '$1-$2')
+            .replace(/(-\d{2})\d+?$/, '$1')
+        )
     }
 
           
@@ -105,7 +119,7 @@ function Seat(props){
                             <input type="text" id="campoNome"value={nome} required onChange={(event) => setNome(event.target.value)} placeholder="   Digite seu nome..."></input>
                             
                             <label for="campoCPF">CPF do comprador</label>
-                            <input type="text" id="campoCPF" value={cpf} required onChange={(event) => setCpf(event.target.value)} placeholder="   Digite seu CPF..."></input>
+                            <input type="text" id="campoCPF" value={cpf} required onChange={(event) => setCpf(cpfMask(event.target.value))} placeholder="   Digite seu CPF..." pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" ></input>
                             
                             <button >
                             Reservar assento(s)
