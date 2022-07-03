@@ -1,5 +1,7 @@
 <h1>This is Cineflex!  /  Este é o Cineflex!</h1>
 
+Check it out on : https://projeto9-cineflex-brown.vercel.app/
+
 ![cineflex2](https://user-images.githubusercontent.com/92411912/177021900-9389685c-4f1a-48f9-82cd-caad0e6e602f.gif)
 
 <h3>English</h3>
